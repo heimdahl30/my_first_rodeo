@@ -42,13 +42,13 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        uses: npm ci
+        run: npm ci
 
       - name: Build
-        uses: npm run build
+        run: npm run build
 
       - name: Run tests
-        uses: npm run test
+        run: npm run test
         env:
           COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
           SECRET: ${{ secrets.SECRET }}
