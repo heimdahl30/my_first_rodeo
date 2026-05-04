@@ -64,9 +64,13 @@ export const createUser = async (
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
     const user = await User.create({ name, email, password: passwordHash });
-    return res
-      .status(201)
-      .json({ message: 'Ok', id: user.id, name: user.name });
+    return res.status(201).json({
+      message: 'Ok',
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      blogs: user.blogs,
+    });
   } catch (error) {
     return next(error);
   }
