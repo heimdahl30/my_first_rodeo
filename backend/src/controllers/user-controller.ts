@@ -153,13 +153,11 @@ export const verifyUser = async (
 ) => {
   try {
     const { id } = res.locals.jwtData;
-    const user = await User.findById(id);
+    const user = await User.findById(id).select('-password');
     if (!user) {
       return res.status(402).json({ error: 'User not found' });
     }
-    return res
-      .status(200)
-      .json({ message: 'User is already logged in', userId: id });
+    return res.status(200).json({ message: 'User is already logged in', user });
   } catch (error) {
     return next(error);
   }
