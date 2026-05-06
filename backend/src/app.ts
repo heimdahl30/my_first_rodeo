@@ -2,12 +2,14 @@ import 'dotenv/config';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
+import cors from 'cors';
 import appRouter from './routes/index.js';
 import errorHandler from './middleware/errorHandler.js';
 import unknownEndpoint from './middleware/unknownEndpoint.js';
 
 const app = express();
 
+app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET as string));
