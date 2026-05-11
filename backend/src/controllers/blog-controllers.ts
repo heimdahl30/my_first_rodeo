@@ -57,6 +57,8 @@ export const createBlog = async (
       author,
     });
 
+    blog.populate('author', 'name');
+
     const user = await User.findByIdAndUpdate(id, {
       $push: { blogs: blog.id },
     });
@@ -79,7 +81,7 @@ export const likeBlog = async (
     const blog = await Blog.findByIdAndUpdate(
       id,
       { $inc: { likes: 1 } },
-      { new: true }
+      { returnDocument: 'after' }
     ).populate('author', 'name');
 
     if (!blog) {
